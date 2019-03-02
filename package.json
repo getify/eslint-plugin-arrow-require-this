@@ -1,7 +1,7 @@
 {
 	"name": "@getify/eslint-plugin-arrow-require-this",
 	"version": "1.0.0",
-	"description": "ESLint rule to require arrow functions reference the 'this' keyword",
+	"description": "ESLint rule to require arrow functions to reference the 'this' keyword",
 	"main": "./lib/index.js",
 	"scripts": {
 		"test": "node scripts/node-tests.js",
@@ -19,13 +19,15 @@
 	"dependencies": {},
 	"devDependencies": {
 		"coveralls": "~3.0.2",
-		"eslint": "~5.14.1",
+		"eslint": "~5.15.0",
 		"qunit": "~2.9.1",
 		"terser": "~3.14.1"
 	},
 	"repository": "getify/eslint-plugin-arrow-require-this",
 	"keywords": [
 		"eslint",
+		"plugin",
+		"eslintplugin",
 		"rule",
 		"arrow",
 		"this"
