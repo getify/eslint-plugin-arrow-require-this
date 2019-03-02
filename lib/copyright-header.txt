@@ -1,0 +1,5 @@
+/*! @getify/eslint-plugin-arrow-require-this
+	v${version} (c) ${year} Kyle Simpson
+	MIT License: http://getify.mit-license.org
+*/
+
