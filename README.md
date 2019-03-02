@@ -1,7 +1,7 @@
 # ESLint Rule: arrow-require-this
 
 [![Build Status](https://travis-ci.org/getify/eslint-plugin-arrow-require-this.svg?branch=master)](https://travis-ci.org/getify/eslint-plugin-arrow-require-this)
-[![npm Module](https://badge.fury.io/js/eslint-plugin-arrow-require-this.svg)](https://www.npmjs.org/package/eslint-plugin-arrow-require-this)
+[![npm Module](https://badge.fury.io/js/%40getify%2Feslint-plugin-arrow-require-this.svg)](https://www.npmjs.org/package/@getify/eslint-plugin-arrow-require-this)
 [![Dependencies](https://david-dm.org/getify/eslint-plugin-arrow-require-this.svg)](https://david-dm.org/getify/eslint-plugin-arrow-require-this)
 [![devDependencies](https://david-dm.org/getify/eslint-plugin-arrow-require-this/dev-status.svg)](https://david-dm.org/getify/eslint-plugin-arrow-require-this?type=dev)
 [![Coverage Status](https://coveralls.io/repos/github/getify/eslint-plugin-arrow-require-this/badge.svg?branch=master)](https://coveralls.io/github/getify/eslint-plugin-arrow-require-this?branch=master)
@@ -197,7 +197,7 @@ This utility uses ES6 (aka ES2015) features. If you need to support environments
 ## Builds
 
 [![Build Status](https://travis-ci.org/getify/eslint-plugin-arrow-require-this.svg?branch=master)](https://travis-ci.org/getify/eslint-plugin-arrow-require-this)
-[![npm Module](https://badge.fury.io/js/eslint-plugin-arrow-require-this.svg)](https://www.npmjs.org/package/eslint-plugin-arrow-require-this)
+[![npm Module](https://badge.fury.io/js/%40getify%2Feslint-plugin-arrow-require-this.svg)](https://www.npmjs.org/package/@getify/eslint-plugin-arrow-require-this)
 
 The distribution library file (`dist/arrow-require-this.js`) comes pre-built with the npm package distribution, so you shouldn't need to rebuild it under normal circumstances.
 
