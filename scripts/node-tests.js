@@ -20,19 +20,19 @@ else {
 	arrowRequireThis = require(path.join(__dirname,"..","lib","index.js"));
 }
 
-eslinter.defineRule("@getify/arrow-require-this",arrowRequireThis);
+eslinter.defineRule("@getify/arrow-require-this/all",arrowRequireThis.rules.all);
 
 global.alwaysOptions = {
 	parserOptions: { ecmaVersion: 2015, },
-	rules: { "@getify/arrow-require-this": ["error","always",], },
+	rules: { "@getify/arrow-require-this/all": ["error","always",], },
 };
 global.nestedOptions = {
 	parserOptions: { ecmaVersion: 2015, },
-	rules: { "@getify/arrow-require-this": ["error","nested",], },
+	rules: { "@getify/arrow-require-this/all": ["error","nested",], },
 };
 global.defaultOptions = {
 	parserOptions: { ecmaVersion: 2015, },
-	rules: { "@getify/arrow-require-this": ["error",], },
+	rules: { "@getify/arrow-require-this/all": ["error",], },
 };
 
 global.QUnit = require("qunit");

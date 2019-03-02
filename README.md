@@ -46,6 +46,60 @@ Here, the `=>` arrow function is lexically closed over the `o` rather than using
 
 To pass the **arrow-require-this** rule without a reported error, all `=>` arrow functions must reference a `this` somewhere in their concise expression body or full `{ .. }` function body.
 
+## Enabling The Plugin
+
+To use **arrow-require-this**, load it as a plugin into ESLint and [configure the rule](#rule-configuration).
+
+### ESLint `.eslintrc.json`
+
+```json
+"plugins": [
+    "@getify/arrow-require-this"
+],
+rules: {
+    "@getify/arrow-require-this/all": ".."
+}
+```
+
+### ESLint CLI parameters
+
+```cmd
+eslint .. --plugin='@getify/arrow-require-this' --rule='@getify/arrow-require-this/all: error' ..
+```
+
+```cmd
+eslint .. --plugin='@getify/arrow-require-this' --rule='@getify/arrow-require-this/all: [error,nested]' ..
+```
+
+```cmd
+eslint .. --plugin='@getify/arrow-require-this' --rule='@getify/arrow-require-this/all: [error,always]' ..
+```
+
+### ESLint Node API
+
+To use this plugin in Node.js with the ESLint API, require the npm package first, and then pass the package's instance to `Linter#defineRule(..)`, similar to this:
+
+```js
+var arrowRequireThis = require("@getify/eslint-plugin-arrow-require-this");
+
+// ..
+
+var Linter = require("eslint").Linter;
+var eslinter = global.eslinter = new Linter();
+
+eslinter.defineRule("@getify/arrow-require-this/all",arrowRequireThis.rules.all);
+```
+
+Then you can check some code like this:
+
+```js
+eslinter.verify(".. some code ..",{
+    rules: {
+        "@getify/arrow-require-this/all": ["error","always"]
+    }
+});
+```
+
 ## Rule Configuration
 
 The rule can be configured in two modes: `"nested"` (default) and `"always"`.
@@ -59,11 +113,11 @@ The rule can be configured in two modes: `"nested"` (default) and `"always"`.
 To select this rule mode (which is the default) in your `.eslintrc.json`:
 
 ```js
-"@getify/arrow-require-this": "error"
+"@getify/arrow-require-this/all": "error"
 ```
 
 ```js
-"@getify/arrow-require-this": [ "error", "nested" ]
+"@getify/arrow-require-this/all": [ "error", "nested" ]
 ```
 
 This rule mode allows a `this` to appear either in the `=>` arrow function, or in a nested `=>` arrow function, as long as there is no non-arrow function boundary crossed in between.
@@ -95,7 +149,7 @@ var h = i => function(){ return j => this.foo(j); };
 To select this mode of the rule in your `.eslintrc.json`:
 
 ```js
-"@getify/arrow-require-this": [ "error", "always" ]
+"@getify/arrow-require-this/all": [ "error", "always" ]
 ```
 
 This rule mode requires a `this` reference to appear in every single `=>` arrow .
@@ -122,10 +176,6 @@ var f = g => this.foo(h => h);
 var i = (j = k => k) => this.foo(j);
 ```
 
-## Environment Support
-
-This utility uses ES6 (aka ES2015) features. If you need to support environments prior to ES6, transpile it first (with Babel, etc).
-
 ## npm Package
 
 If you want to use this plugin with a global install of ESLint:
@@ -140,40 +190,9 @@ If you want to use this plugin with a local install of ESLint:
 npm install @getify/eslint-plugin-arrow-require-this
 ```
 
-And to load it as a plugin into ESLint, and configure it as a rule, use this plugin name:
+## Environment Support
 
-```js
-"@getify/arrow-require-this": ..
-```
-
-## Use With ESLint CLI
-
-```cmd
-eslint .. --plugin='@getify/arrow-require-this' --rule='@getify/arrow-require-this: error' ..
-```
-
-```cmd
-eslint .. --plugin='@getify/arrow-require-this' --rule='@getify/arrow-require-this: [error,nested]' ..
-```
-
-```cmd
-eslint .. --plugin='@getify/arrow-require-this' --rule='@getify/arrow-require-this: [error,always]' ..
-```
-
-## Use with the ESLint Node API
-
-To use this plugin in Node.js with the ESLint API, require the npm package first, and then you can pass the instance to `Linter#defineRule(..)`, similar to this:
-
-```js
-var pluginArrowRequireThis = require("@getify/eslint-plugin-arrow-require-this");
-
-// ..
-
-var Linter = require("eslint").Linter;
-var eslinter = global.eslinter = new Linter();
-
-eslinter.defineRule("@getify/arrow-require-this",pluginArrowRequireThis);
-```
+This utility uses ES6 (aka ES2015) features. If you need to support environments prior to ES6, transpile it first (with Babel, etc).
 
 ## Builds
 

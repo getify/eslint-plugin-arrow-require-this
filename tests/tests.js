@@ -55,7 +55,7 @@ QUnit.test( "simple arrow, no this (always)", function test(assert){
 
 	assert.expect(3);
 	assert.strictEqual( results.length, 1, "only 1 error" );
-	assert.strictEqual( ruleId, "@getify/arrow-require-this", "ruleId" );
+	assert.strictEqual( ruleId, "@getify/arrow-require-this/all", "ruleId" );
 	assert.strictEqual( messageId, "noThis", "messageId" );
 } );
 
@@ -73,9 +73,9 @@ QUnit.test( "two separate arrows, no this (always)", function test(assert){
 
 	assert.expect(5);
 	assert.strictEqual( results.length, 2, "only 2 errors" );
-	assert.strictEqual( ruleId1, "@getify/arrow-require-this", "ruleId1" );
+	assert.strictEqual( ruleId1, "@getify/arrow-require-this/all", "ruleId1" );
 	assert.strictEqual( messageId1, "noThis", "messageId1" );
-	assert.strictEqual( ruleId2, "@getify/arrow-require-this", "ruleId2" );
+	assert.strictEqual( ruleId2, "@getify/arrow-require-this/all", "ruleId2" );
 	assert.strictEqual( messageId2, "noThis", "messageId2" );
 } );
 
@@ -89,7 +89,7 @@ QUnit.test( "two nested arrows, one this nested (always)", function test(assert)
 
 	assert.expect(3);
 	assert.strictEqual( results.length, 1, "only 1 error" );
-	assert.strictEqual( ruleId, "@getify/arrow-require-this", "ruleId" );
+	assert.strictEqual( ruleId, "@getify/arrow-require-this/all", "ruleId" );
 	assert.strictEqual( messageId, "noThis", "messageId" );
 } );
 
@@ -103,7 +103,7 @@ QUnit.test( "two nested arrows, one this not-nested (always)", function test(ass
 
 	assert.expect(3);
 	assert.strictEqual( results.length, 1, "only 1 error" );
-	assert.strictEqual( ruleId, "@getify/arrow-require-this", "ruleId" );
+	assert.strictEqual( ruleId, "@getify/arrow-require-this/all", "ruleId" );
 	assert.strictEqual( messageId, "noThis", "messageId" );
 } );
 
@@ -120,9 +120,9 @@ QUnit.test( "two nested arrows, no this (always)", function test(assert){
 
 	assert.expect(5);
 	assert.strictEqual( results.length, 2, "only 2 errors" );
-	assert.strictEqual( ruleId1, "@getify/arrow-require-this", "ruleId1" );
+	assert.strictEqual( ruleId1, "@getify/arrow-require-this/all", "ruleId1" );
 	assert.strictEqual( messageId1, "noThis", "messageId1" );
-	assert.strictEqual( ruleId2, "@getify/arrow-require-this", "ruleId2" );
+	assert.strictEqual( ruleId2, "@getify/arrow-require-this/all", "ruleId2" );
 	assert.strictEqual( messageId2, "noThis", "messageId2" );
 } );
 
@@ -136,7 +136,7 @@ QUnit.test( "one arrow with param arrow, nested this (always)", function test(as
 
 	assert.expect(3);
 	assert.strictEqual( results.length, 1, "only 1 error" );
-	assert.strictEqual( ruleId, "@getify/arrow-require-this", "ruleId" );
+	assert.strictEqual( ruleId, "@getify/arrow-require-this/all", "ruleId" );
 	assert.strictEqual( messageId, "noThis", "messageId" );
 } );
 
@@ -150,7 +150,7 @@ QUnit.test( "one arrow with param arrow, param this (always)", function test(ass
 
 	assert.expect(3);
 	assert.strictEqual( results.length, 1, "only 1 error" );
-	assert.strictEqual( ruleId, "@getify/arrow-require-this", "ruleId" );
+	assert.strictEqual( ruleId, "@getify/arrow-require-this/all", "ruleId" );
 	assert.strictEqual( messageId, "noThis", "messageId" );
 } );
 
@@ -224,7 +224,7 @@ QUnit.test( "simple arrow, no this (nested)", function test(assert){
 
 	assert.expect(3);
 	assert.strictEqual( results.length, 1, "only 1 error" );
-	assert.strictEqual( ruleId, "@getify/arrow-require-this", "ruleId" );
+	assert.strictEqual( ruleId, "@getify/arrow-require-this/all", "ruleId" );
 	assert.strictEqual( messageId, "noThisNested", "messageId" );
 } );
 
@@ -242,9 +242,9 @@ QUnit.test( "two separate arrows, no this (nested)", function test(assert){
 
 	assert.expect(5);
 	assert.strictEqual( results.length, 2, "only 2 errors" );
-	assert.strictEqual( ruleId1, "@getify/arrow-require-this", "ruleId1" );
+	assert.strictEqual( ruleId1, "@getify/arrow-require-this/all", "ruleId1" );
 	assert.strictEqual( messageId1, "noThisNested", "messageId1" );
-	assert.strictEqual( ruleId2, "@getify/arrow-require-this", "ruleId2" );
+	assert.strictEqual( ruleId2, "@getify/arrow-require-this/all", "ruleId2" );
 	assert.strictEqual( messageId2, "noThisNested", "messageId2" );
 } );
 
@@ -269,7 +269,7 @@ QUnit.test( "two nested arrows, one this not-nested (nested)", function test(ass
 
 	assert.expect(3);
 	assert.strictEqual( results.length, 1, "only 1 error" );
-	assert.strictEqual( ruleId, "@getify/arrow-require-this", "ruleId" );
+	assert.strictEqual( ruleId, "@getify/arrow-require-this/all", "ruleId" );
 	assert.strictEqual( messageId, "noThisNested", "messageId" );
 } );
 
@@ -286,9 +286,9 @@ QUnit.test( "two nested arrows, no this (nested)", function test(assert){
 
 	assert.expect(5);
 	assert.strictEqual( results.length, 2, "only 2 errors" );
-	assert.strictEqual( ruleId1, "@getify/arrow-require-this", "ruleId1" );
+	assert.strictEqual( ruleId1, "@getify/arrow-require-this/all", "ruleId1" );
 	assert.strictEqual( messageId1, "noThisNested", "messageId1" );
-	assert.strictEqual( ruleId2, "@getify/arrow-require-this", "ruleId2" );
+	assert.strictEqual( ruleId2, "@getify/arrow-require-this/all", "ruleId2" );
 	assert.strictEqual( messageId2, "noThisNested", "messageId2" );
 } );
 
@@ -302,7 +302,7 @@ QUnit.test( "one arrow with param arrow, nested this (nested)", function test(as
 
 	assert.expect(3);
 	assert.strictEqual( results.length, 1, "only 1 error" );
-	assert.strictEqual( ruleId, "@getify/arrow-require-this", "ruleId" );
+	assert.strictEqual( ruleId, "@getify/arrow-require-this/all", "ruleId" );
 	assert.strictEqual( messageId, "noThisNested", "messageId" );
 } );
 
@@ -338,7 +338,7 @@ QUnit.test( "two arrows with non-arrow between, nested this (nested)", function 
 
 	assert.expect(3);
 	assert.strictEqual( results.length, 1, "only 1 error" );
-	assert.strictEqual( ruleId, "@getify/arrow-require-this", "ruleId" );
+	assert.strictEqual( ruleId, "@getify/arrow-require-this/all", "ruleId" );
 	assert.strictEqual( messageId, "noThisNested", "messageId" );
 } );
 
@@ -352,7 +352,7 @@ QUnit.test( "one arrow and non-arrow with arrow param, param this (nested)", fun
 
 	assert.expect(3);
 	assert.strictEqual( results.length, 1, "only 1 error" );
-	assert.strictEqual( ruleId, "@getify/arrow-require-this", "ruleId" );
+	assert.strictEqual( ruleId, "@getify/arrow-require-this/all", "ruleId" );
 	assert.strictEqual( messageId, "noThisNested", "messageId" );
 } );
 
@@ -366,7 +366,7 @@ QUnit.test( "two arrows with non-arrow between, not-nested this (nested)", funct
 
 	assert.expect(3);
 	assert.strictEqual( results.length, 1, "only 1 error" );
-	assert.strictEqual( ruleId, "@getify/arrow-require-this", "ruleId" );
+	assert.strictEqual( ruleId, "@getify/arrow-require-this/all", "ruleId" );
 	assert.strictEqual( messageId, "noThisNested", "messageId" );
 } );
 
@@ -383,9 +383,9 @@ QUnit.test( "two arrows with non-arrow between, no this (nested)", function test
 
 	assert.expect(5);
 	assert.strictEqual( results.length, 2, "only 2 errors" );
-	assert.strictEqual( ruleId1, "@getify/arrow-require-this", "ruleId1" );
+	assert.strictEqual( ruleId1, "@getify/arrow-require-this/all", "ruleId1" );
 	assert.strictEqual( messageId1, "noThisNested", "messageId1" );
-	assert.strictEqual( ruleId2, "@getify/arrow-require-this", "ruleId2" );
+	assert.strictEqual( ruleId2, "@getify/arrow-require-this/all", "ruleId2" );
 	assert.strictEqual( messageId2, "noThisNested", "messageId2" );
 } );
 
@@ -410,7 +410,7 @@ QUnit.test( "one arrow and one non-arrow, nested this (nested)", function test(a
 
 	assert.expect(3);
 	assert.strictEqual( results.length, 1, "only 1 error" );
-	assert.strictEqual( ruleId, "@getify/arrow-require-this", "ruleId" );
+	assert.strictEqual( ruleId, "@getify/arrow-require-this/all", "ruleId" );
 	assert.strictEqual( messageId, "noThisNested", "messageId" );
 } );
 
@@ -473,7 +473,7 @@ QUnit.test( "simple arrow, no this (nested)", function test(assert){
 
 	assert.expect(3);
 	assert.strictEqual( results.length, 1, "only 1 error" );
-	assert.strictEqual( ruleId, "@getify/arrow-require-this", "ruleId" );
+	assert.strictEqual( ruleId, "@getify/arrow-require-this/all", "ruleId" );
 	assert.strictEqual( messageId, "noThisNested", "messageId" );
 } );
 
@@ -491,9 +491,9 @@ QUnit.test( "two separate arrows, no this (default: nested)", function test(asse
 
 	assert.expect(5);
 	assert.strictEqual( results.length, 2, "only 2 errors" );
-	assert.strictEqual( ruleId1, "@getify/arrow-require-this", "ruleId1" );
+	assert.strictEqual( ruleId1, "@getify/arrow-require-this/all", "ruleId1" );
 	assert.strictEqual( messageId1, "noThisNested", "messageId1" );
-	assert.strictEqual( ruleId2, "@getify/arrow-require-this", "ruleId2" );
+	assert.strictEqual( ruleId2, "@getify/arrow-require-this/all", "ruleId2" );
 	assert.strictEqual( messageId2, "noThisNested", "messageId2" );
 } );
 
@@ -518,7 +518,7 @@ QUnit.test( "two nested arrows, one this not-nested (nested)", function test(ass
 
 	assert.expect(3);
 	assert.strictEqual( results.length, 1, "only 1 error" );
-	assert.strictEqual( ruleId, "@getify/arrow-require-this", "ruleId" );
+	assert.strictEqual( ruleId, "@getify/arrow-require-this/all", "ruleId" );
 	assert.strictEqual( messageId, "noThisNested", "messageId" );
 } );
 
@@ -535,9 +535,9 @@ QUnit.test( "two nested arrows, no this (default: nested)", function test(assert
 
 	assert.expect(5);
 	assert.strictEqual( results.length, 2, "only 2 errors" );
-	assert.strictEqual( ruleId1, "@getify/arrow-require-this", "ruleId1" );
+	assert.strictEqual( ruleId1, "@getify/arrow-require-this/all", "ruleId1" );
 	assert.strictEqual( messageId1, "noThisNested", "messageId1" );
-	assert.strictEqual( ruleId2, "@getify/arrow-require-this", "ruleId2" );
+	assert.strictEqual( ruleId2, "@getify/arrow-require-this/all", "ruleId2" );
 	assert.strictEqual( messageId2, "noThisNested", "messageId2" );
 } );
 
@@ -551,7 +551,7 @@ QUnit.test( "one arrow with param arrow, nested this (default: nested)", functio
 
 	assert.expect(3);
 	assert.strictEqual( results.length, 1, "only 1 error" );
-	assert.strictEqual( ruleId, "@getify/arrow-require-this", "ruleId" );
+	assert.strictEqual( ruleId, "@getify/arrow-require-this/all", "ruleId" );
 	assert.strictEqual( messageId, "noThisNested", "messageId" );
 } );
 
@@ -587,7 +587,7 @@ QUnit.test( "two arrows with non-arrow between, nested this (default: nested)", 
 
 	assert.expect(3);
 	assert.strictEqual( results.length, 1, "only 1 error" );
-	assert.strictEqual( ruleId, "@getify/arrow-require-this", "ruleId" );
+	assert.strictEqual( ruleId, "@getify/arrow-require-this/all", "ruleId" );
 	assert.strictEqual( messageId, "noThisNested", "messageId" );
 } );
 
@@ -601,7 +601,7 @@ QUnit.test( "one arrow and non-arrow with arrow param, param this (default: nest
 
 	assert.expect(3);
 	assert.strictEqual( results.length, 1, "only 1 error" );
-	assert.strictEqual( ruleId, "@getify/arrow-require-this", "ruleId" );
+	assert.strictEqual( ruleId, "@getify/arrow-require-this/all", "ruleId" );
 	assert.strictEqual( messageId, "noThisNested", "messageId" );
 } );
 
@@ -615,7 +615,7 @@ QUnit.test( "two arrows with non-arrow between, not-nested this (default: nested
 
 	assert.expect(3);
 	assert.strictEqual( results.length, 1, "only 1 error" );
-	assert.strictEqual( ruleId, "@getify/arrow-require-this", "ruleId" );
+	assert.strictEqual( ruleId, "@getify/arrow-require-this/all", "ruleId" );
 	assert.strictEqual( messageId, "noThisNested", "messageId" );
 } );
 
@@ -632,9 +632,9 @@ QUnit.test( "two arrows with non-arrow between, no this (default: nested)", func
 
 	assert.expect(5);
 	assert.strictEqual( results.length, 2, "only 2 errors" );
-	assert.strictEqual( ruleId1, "@getify/arrow-require-this", "ruleId1" );
+	assert.strictEqual( ruleId1, "@getify/arrow-require-this/all", "ruleId1" );
 	assert.strictEqual( messageId1, "noThisNested", "messageId1" );
-	assert.strictEqual( ruleId2, "@getify/arrow-require-this", "ruleId2" );
+	assert.strictEqual( ruleId2, "@getify/arrow-require-this/all", "ruleId2" );
 	assert.strictEqual( messageId2, "noThisNested", "messageId2" );
 } );
 
@@ -659,7 +659,7 @@ QUnit.test( "one arrow and one non-arrow, nested this (default: nested)", functi
 
 	assert.expect(3);
 	assert.strictEqual( results.length, 1, "only 1 error" );
-	assert.strictEqual( ruleId, "@getify/arrow-require-this", "ruleId" );
+	assert.strictEqual( ruleId, "@getify/arrow-require-this/all", "ruleId" );
 	assert.strictEqual( messageId, "noThisNested", "messageId" );
 } );
 
