@@ -48,7 +48,7 @@ To pass this rule without an exception, an `=>` arrow function must reference a 
 
 ## Rule Options
 
-The rule comes can be applied in two forms: `"nested"` (default) and `"always"`.
+The rule can be configured in two forms: `"nested"` (default) and `"always"`.
 
 `"nested"` permits a `this` to appear in a nested `=>` arrow function (i.e., `x = y => z => this.foo(z)`), as long as there is not a non-arrow function boundary crossed.
 
@@ -56,7 +56,7 @@ The rule comes can be applied in two forms: `"nested"` (default) and `"always"`.
 
 ### `"nested"`
 
-To use this configuration option (which is the default), use one of these:
+To configure this form of the rule (which is the default) in your `.eslintrc.json`, use one of these:
 
 ```js
 "@getify/arrow-require-this": "error"
@@ -92,10 +92,10 @@ var h = i => function(){ return j => this.foo(j); };
 
 ### `"always"`
 
-To use this configuration option:
+To use this configuration option in your `.eslintrc.json`:
 
 ```js
-"@getify/eslint-plugin-arrow-require-this": [ "error", "always" ]
+"@getify/arrow-require-this": [ "error", "always" ]
 ```
 
 This configuration option requires a `this` reference to appear in every single `=>` arrow .
@@ -140,7 +140,7 @@ If you want to use this plugin with a local install of ESLint:
 npm install @getify/eslint-plugin-arrow-require-this
 ```
 
-And to load it as a plugin into ESLint, use this plugin name:
+And to load it as a plugin into ESLint, and configure it as a rule, use this plugin name:
 
 ```js
 "@getify/arrow-require-this"
@@ -152,12 +152,13 @@ And to load it as a plugin into ESLint, use this plugin name:
 eslint .. --plugin @getify/arrow-require-this --rule '@getify/arrow-require-this: error' ..
 ```
 
-Or:
-
 ```cmd
-eslint .. --plugin @getify/arrow-require-this --rule '@getify/arrow-require-this: error nested' ..
+eslint .. --plugin @getify/arrow-require-this --rule '@getify/arrow-require-this: [error,nested]' ..
 ```
 
+```cmd
+eslint .. --plugin @getify/arrow-require-this --rule '@getify/arrow-require-this: [error,always]' ..
+```
 
 ## Builds
 
