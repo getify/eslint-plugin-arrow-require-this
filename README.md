@@ -46,7 +46,7 @@ Here, the `=>` arrow function is lexically closed over the `o` rather than using
 
 To pass this rule without an exception, an `=>` arrow function must reference a `this` somewhere in its concise expression body or its full `{ .. }` function body.
 
-## Rule Options
+## Rule Configuration Options
 
 The rule can be configured in two forms: `"nested"` (default) and `"always"`.
 
@@ -54,16 +54,16 @@ The rule can be configured in two forms: `"nested"` (default) and `"always"`.
 
 `"always"` is more strict, requiring every single `=>` arrow function to have its own `this` reference.
 
-### `"nested"`
+### Configuration: `"nested"`
 
 To configure this form of the rule (which is the default) in your `.eslintrc.json`, use one of these:
 
 ```js
-"@getify/arrow-require-this": "error"
+"arrow-require-this": "error"
 ```
 
 ```js
-"@getify/arrow-require-this": [ "error", "nested" ]
+"arrow-require-this": [ "error", "nested" ]
 ```
 
 This configuration option allows a `this` to appear either in the `=>` arrow function, or in a nested `=>` arrow function, as long as there is not a non-arrow function boundary to be crossed in between.
@@ -90,12 +90,12 @@ var f = (g = h => h) => this.foo(g);
 var h = i => function(){ return j => this.foo(j); };
 ```
 
-### `"always"`
+### Configuration: `"always"`
 
 To use this configuration option in your `.eslintrc.json`:
 
 ```js
-"@getify/arrow-require-this": [ "error", "always" ]
+"arrow-require-this": [ "error", "always" ]
 ```
 
 This configuration option requires a `this` reference to appear in every single `=>` arrow .
@@ -143,21 +143,21 @@ npm install @getify/eslint-plugin-arrow-require-this
 And to load it as a plugin into ESLint, and configure it as a rule, use this plugin name:
 
 ```js
-"@getify/arrow-require-this"
+"arrow-require-this": ..
 ```
 
 ## Use With ESLint CLI
 
 ```cmd
-eslint .. --plugin @getify/arrow-require-this --rule '@getify/arrow-require-this: error' ..
+eslint .. --plugin='@getify/arrow-require-this' --rule='@getify/arrow-require-this: error' ..
 ```
 
 ```cmd
-eslint .. --plugin @getify/arrow-require-this --rule '@getify/arrow-require-this: [error,nested]' ..
+eslint .. --plugin='@getify/arrow-require-this' --rule='@getify/arrow-require-this: [error,nested]' ..
 ```
 
 ```cmd
-eslint .. --plugin @getify/arrow-require-this --rule '@getify/arrow-require-this: [error,always]' ..
+eslint .. --plugin='@getify/arrow-require-this' --rule='@getify/arrow-require-this: [error,always]' ..
 ```
 
 ## Builds
