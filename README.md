@@ -85,7 +85,7 @@ var arrowRequireThis = require("@getify/eslint-plugin-arrow-require-this");
 // ..
 
 var Linter = require("eslint").Linter;
-var eslinter = global.eslinter = new Linter();
+var eslinter = new Linter();
 
 eslinter.defineRule("@getify/arrow-require-this/all",arrowRequireThis.rules.all);
 ```
