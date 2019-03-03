@@ -1,6 +1,6 @@
 {
 	"name": "@getify/eslint-plugin-arrow-require-this",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "ESLint rule to require arrow functions to reference the 'this' keyword",
 	"main": "./lib/index.js",
 	"scripts": {

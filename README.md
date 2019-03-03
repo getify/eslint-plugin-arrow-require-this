@@ -20,7 +20,7 @@ For example:
 var o = {
     id: 42,
     getData() {
-        ajax("https://some.tld/api",resp => console.log(this.id));
+        ajax("https://some.tld/api",() => console.log(this.id));
     }
 };
 
@@ -35,14 +35,14 @@ By contrast, the **arrow-require-this** rule *would* report an error for:
 var o = {
     id: 42,
     getData() {
-        ajax("https://some.tld/api",resp => console.log(o.id));
+        ajax("https://some.tld/api",() => console.log(o.id));
     }
 };
 
 o.getData();   // 42
 ```
 
-Here, the `=>` arrow function is lexically closed over the `o` rather than using "lexical this", so it's considered a misusage of the `=>` arrow function.
+Here, the `=>` arrow function is lexically closed over the `o` rather than using "lexical this", so it can be considered a misusage of the `=>` arrow function merely for shorthand; rather, the callback should have just been a regular named function expression (ie, `function onResp(){ console.log(o.id); }`).
 
 To pass the **arrow-require-this** rule without a reported error, all `=>` arrow functions must reference a `this` somewhere in their concise expression body or full `{ .. }` function body.
 
@@ -51,6 +51,8 @@ To pass the **arrow-require-this** rule without a reported error, all `=>` arrow
 To use **arrow-require-this**, load it as a plugin into ESLint and [configure the rule](#rule-configuration).
 
 ### ESLint `.eslintrc.json`
+
+The most common way of loading the plugin and enabling its rule is to add it to a local or global `.eslintrc.json` configuration file:
 
 ```json
 "plugins": [
@@ -62,6 +64,8 @@ rules: {
 ```
 
 ### ESLint CLI parameters
+
+To load the plugin and enable its rule via ESLint CLI parameters, use `--plugin` and `--rule`:
 
 ```cmd
 eslint .. --plugin='@getify/arrow-require-this' --rule='@getify/arrow-require-this/all: error' ..
@@ -77,20 +81,19 @@ eslint .. --plugin='@getify/arrow-require-this' --rule='@getify/arrow-require-th
 
 ### ESLint Node API
 
-To use this plugin in Node.js with the ESLint API, require the npm package first, and then pass the package's instance to `Linter#defineRule(..)`, similar to this:
+To use this plugin in Node.js with the ESLint API, require the npm module, and then (for example) pass the rule's definition to `Linter#defineRule(..)`, similar to:
 
 ```js
 var arrowRequireThis = require("@getify/eslint-plugin-arrow-require-this");
 
 // ..
 
-var Linter = require("eslint").Linter;
-var eslinter = new Linter();
+var eslinter = new (require("eslint").Linter)();
 
 eslinter.defineRule("@getify/arrow-require-this/all",arrowRequireThis.rules.all);
 ```
 
-Then you can check some code like this:
+Then lint some code like this:
 
 ```js
 eslinter.verify(".. some code ..",{
@@ -102,7 +105,7 @@ eslinter.verify(".. some code ..",{
 
 ## Rule Configuration
 
-The rule can be configured in two modes: `"nested"` (default) and `"always"`.
+The **arrow-require-this** rule can be configured in two modes: `"nested"` (default) and `"always"`.
 
 `"nested"` permits a `this` to appear lower in a nested `=>` arrow function (i.e., `x = y => z => this.foo(z)`), as long as there is no non-arrow function boundary crossed.
 
@@ -110,7 +113,7 @@ The rule can be configured in two modes: `"nested"` (default) and `"always"`.
 
 ### Configuration: `"nested"`
 
-To select this rule mode (which is the default) in your `.eslintrc.json`:
+To select this rule mode (the default) in your `.eslintrc.json`:
 
 ```js
 "@getify/arrow-require-this/all": "error"
@@ -120,9 +123,9 @@ To select this rule mode (which is the default) in your `.eslintrc.json`:
 "@getify/arrow-require-this/all": [ "error", "nested" ]
 ```
 
-This rule mode allows a `this` to appear either in the `=>` arrow function, or in a nested `=>` arrow function, as long as there is no non-arrow function boundary crossed in between.
+This rule mode allows a `this` to appear either in the `=>` arrow function, or nested in a chain of `=>` arrow functions, as long as there is no non-arrow function boundary crossed in between.
 
-These kinds of  `=>` arrow functions will all pass the rule:
+These `=>` arrow functions will all pass the rule:
 
 ```js
 var a = b => this.foo(b);
@@ -132,7 +135,7 @@ var c = d => e => this.foo(e);
 var f = (g = h => this.foo(h)) => g;
 ```
 
-These types of `=>` arrow functions will each fail the rule:
+These `=>` arrow functions will each fail the rule:
 
 ```js
 var a = b => foo(b);
@@ -152,9 +155,9 @@ To select this mode of the rule in your `.eslintrc.json`:
 "@getify/arrow-require-this/all": [ "error", "always" ]
 ```
 
-This rule mode requires a `this` reference to appear in every single `=>` arrow .
+This rule mode requires a `this` reference to appear in every single `=>` arrow function (e.g., nested `this` is not sufficient).
 
-These `=>` arrow functions will pass the rule:
+These `=>` arrow functions will all pass the rule:
 
 ```js
 var a = b => this.foo(b);
@@ -164,7 +167,7 @@ var c = d => this.foo(e => this.bar(e));
 var f = (g = h => this.foo(h)) => this.bar(g);
 ```
 
-These `=>` arrow functions will fail the rule:
+These `=>` arrow functions will each fail the rule:
 
 ```js
 var a = b => foo(b);
@@ -176,46 +179,42 @@ var f = g => this.foo(h => h);
 var i = (j = k => k) => this.foo(j);
 ```
 
+**Note:** In each of the above examples, at least one of the `=>` arrow functions does not have its own `this`, hence the mode's rule failure (which doesn't consider nested `this`).
+
 ## npm Package
 
-If you want to use this plugin with a global install of ESLint:
+To use this plugin with a global install of ESLint (recommended):
 
 ```cmd
 npm install -g @getify/eslint-plugin-arrow-require-this
 ```
 
-If you want to use this plugin with a local install of ESLint:
+To use this plugin with a local install of ESLint:
 
 ```cmd
 npm install @getify/eslint-plugin-arrow-require-this
 ```
-
-## Environment Support
-
-This utility uses ES6 (aka ES2015) features. If you need to support environments prior to ES6, transpile it first (with Babel, etc).
 
 ## Builds
 
 [![Build Status](https://travis-ci.org/getify/eslint-plugin-arrow-require-this.svg?branch=master)](https://travis-ci.org/getify/eslint-plugin-arrow-require-this)
 [![npm Module](https://badge.fury.io/js/%40getify%2Feslint-plugin-arrow-require-this.svg)](https://www.npmjs.org/package/@getify/eslint-plugin-arrow-require-this)
 
-The distribution library file (`dist/arrow-require-this.js`) comes pre-built with the npm package distribution, so you shouldn't need to rebuild it under normal circumstances.
+If you need to bundle/distribute this eslint plugin, use `dist/arrow-require-this.js`, which comes pre-built with the npm package distribution; you shouldn't need to rebuild it under normal circumstances.
 
 However, if you download this repository via Git:
 
-1. The included build utility (`scripts/build-core.js`) builds (and minifies) `dist/arrow-require-this.js` from source. **The build utility expects Node.js version 6+.**
+1. The included build utility (`scripts/build-core.js`) builds (and minifies) `dist/arrow-require-this.js` from source.
 
 2. To install the build and test dependencies, run `npm install` from the project root directory.
 
-    - **Note:** This `npm install` has the effect of running the build for you, so no further action should be needed on your part.
-
-4. To manually run the build utility with npm:
+3. To manually run the build utility with npm:
 
     ```cmd
     npm run build
     ```
 
-5. To run the build utility directly without npm:
+4. To run the build utility directly without npm:
 
     ```cmd
     node scripts/build-core.js
@@ -223,13 +222,13 @@ However, if you download this repository via Git:
 
 ## Tests
 
-A comprehensive test suite is included in this repository, as well as the npm package distribution. The default test behavior runs the test suite using `lib/index.js`.
+A comprehensive test suite is included in this repository, as well as the npm package distribution. The default test behavior runs the test suite against `lib/index.js`.
 
-1. The included Node.js test utility (`scripts/node-tests.js`) runs the test suite. **This test utility expects Node.js version 6+.**
+1. The included Node.js test utility (`scripts/node-tests.js`) runs the test suite.
 
 2. Ensure the test dependencies are installed by running `npm install` from the project root directory.
 
-    - **Note:** Starting with npm v5, the test utility is **not** run automatically during this `npm install`. With npm v4, the test utility automatically runs at this point.
+    - **Note:** Starting with npm v5, the test utility is **not** run automatically during this `npm install`. With npm v4 and before, the test utility automatically runs at this point.
 
 3. To run the test utility with npm:
 
@@ -269,7 +268,7 @@ To run Istanbul directly without npm:
 istanbul cover scripts/node-tests.js
 ```
 
-**Note:** The npm script `coverage:report` is only intended for use by project maintainers. It sends coverage reports to [Coveralls](https://coveralls.io/).
+**Note:** The npm script `coverage:report` is only intended for use by project maintainers; it sends coverage reports to [Coveralls](https://coveralls.io/).
 
 ## License
 
