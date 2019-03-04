@@ -30,6 +30,10 @@ global.nestedOptions = {
 	parserOptions: { ecmaVersion: 2015, },
 	rules: { "@getify/arrow-require-this/all": ["error","nested",], },
 };
+global.neverOptions = {
+	parserOptions: { ecmaVersion: 2015, },
+	rules: { "@getify/arrow-require-this/all": ["error","never",], },
+};
 global.defaultOptions = {
 	parserOptions: { ecmaVersion: 2015, },
 	rules: { "@getify/arrow-require-this/all": ["error",], },

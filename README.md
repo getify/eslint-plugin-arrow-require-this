@@ -8,11 +8,13 @@
 
 ## Overview
 
-The **arrow-require-this** ESLint Rule requires `=>` arrow functions to reference the `this` keyword.
+The **arrow-require-this** ESLint Rule requires `=>` arrow functions to reference the `this` keyword. It also supports a "never" configuration, which means that `=>` arrow functions should never use `this`.
 
-The purpose of this rule is to prevent usage of `=>` arrow functions as just function shorthand (i.e., `arr.map(x => x * 2)`), which some would argue is a misusage. The opinion follows that: instead, `=>` arrow functions should only be used for "lexical this" behavior.
+The main purpose of this rule is to prevent usage of `=>` arrow functions as just function shorthand (i.e., `arr.map(x => x * 2)`), which some argue is a misusage. The opinion follows that: the concise syntax (with all its myriad variations) can harm readability, so instead `=>` arrow functions should only be used when the "lexical this" behavior is needed.
 
-Since `=>` arrow functions don't have their own `this`, they treat any `this` reference as a normal variable (not a special keyword). That means `this` is just lexically looked up through any parent scopes until a valid definition of `this` is found -- from a non-arrow function, or finally the global scope itself. Such `this` behavior is referred to as "lexical this".
+Since `=>` arrow functions don't have their own `this`, they treat any `this` reference as a normal variable (not a special keyword). That means `this` is just lexically looked up through any parent scopes until a valid definition of `this` is found -- from a normal non-arrow function, or finally in the global scope itself.
+
+Such `this` behavior is referred to as "lexical this", and it is one of the main design characteristics for `=>` arrow functions.
 
 For example:
 
@@ -44,22 +46,37 @@ o.getData();   // 42
 
 Here, the `=>` arrow function is lexically closed over the `o` rather than using "lexical this", so it can be considered a misusage of the `=>` arrow function merely for shorthand; rather, the callback should have just been a regular named function expression (ie, `function onResp(){ console.log(o.id); }`).
 
-To pass the **arrow-require-this** rule without a reported error, all `=>` arrow functions must reference a `this` somewhere in their concise expression body or full `{ .. }` function body.
+To pass the **arrow-require-this** rule without a reported error, all `=>` arrow functions must reference a `this` somewhere in their concise expression body or full `{ .. }` function body (or in its nested `=>` arrow functions when using "nested" configuration).
 
 ## Enabling The Plugin
 
-To use **arrow-require-this**, load it as a plugin into ESLint and [configure the rule](#rule-configuration).
+To use **arrow-require-this**, load it as a plugin into ESLint and [configure the rule](#rule-configuration) as desired.
 
-### ESLint `.eslintrc.json`
+### `.eslintrc.json`
 
-The most common way of loading the plugin and enabling its rule is to add it to a local or global `.eslintrc.json` configuration file:
+To load the plugin and enable its rule via a local or global `.eslintrc.json` configuration file:
 
 ```json
 "plugins": [
     "@getify/arrow-require-this"
 ],
-rules: {
-    "@getify/arrow-require-this/all": ".."
+"rules": {
+    "@getify/arrow-require-this/all": "error"
+}
+```
+
+### `package.json`
+
+To load the plugin and enable its rule via a project's `package.json`:
+
+```json
+"eslintConfig": {
+    "plugins": [
+        "@getify/arrow-require-this"
+    ],
+    "rules": {
+        "@getify/arrow-require-this/all": "error"
+    }
 }
 ```
 
@@ -69,10 +86,6 @@ To load the plugin and enable its rule via ESLint CLI parameters, use `--plugin`
 
 ```cmd
 eslint .. --plugin='@getify/arrow-require-this' --rule='@getify/arrow-require-this/all: error' ..
-```
-
-```cmd
-eslint .. --plugin='@getify/arrow-require-this' --rule='@getify/arrow-require-this/all: [error,nested]' ..
 ```
 
 ```cmd
@@ -103,17 +116,31 @@ eslinter.verify(".. some code ..",{
 });
 ```
 
+### Inline Comments
+
+Once the plugin is loaded, the rule can be configured using inline code comments if desired, such as:
+
+```js
+/* eslint "@getify/arrow-require-this/all": "error" */
+```
+
+```js
+/* eslint "@getify/arrow-require-this/all": ["error","always"] */
+```
+
 ## Rule Configuration
 
-The **arrow-require-this** rule can be configured in two modes: `"nested"` (default) and `"always"`.
+The **arrow-require-this** rule can be configured in three modes: `"nested"` (default), `"always"`, and `"never"`.
 
-`"nested"` permits a `this` to appear lower in a nested `=>` arrow function (i.e., `x = y => z => this.foo(z)`), as long as there is no non-arrow function boundary crossed.
+`"nested"` (default) permits a `this` to appear lower in a nested `=>` arrow function (i.e., `x = y => z => this.foo(z)`), as long as there is no non-arrow function boundary crossed.
 
 `"always"` is more strict, requiring every single `=>` arrow function to have its own `this` reference.
 
+`"never"` is the reverse, which is that all `=>` arrow functions are forbidden from using `this`.
+
 ### Configuration: `"nested"`
 
-To select this rule mode (the default) in your `.eslintrc.json`:
+To configure this rule mode (default):
 
 ```js
 "@getify/arrow-require-this/all": "error"
@@ -149,7 +176,7 @@ var h = i => function(){ return j => this.foo(j); };
 
 ### Configuration: `"always"`
 
-To select this mode of the rule in your `.eslintrc.json`:
+To configure this rule mode:
 
 ```js
 "@getify/arrow-require-this/all": [ "error", "always" ]
@@ -180,6 +207,36 @@ var i = (j = k => k) => this.foo(j);
 ```
 
 **Note:** In each of the above examples, at least one of the `=>` arrow functions does not have its own `this`, hence the mode's rule failure (which doesn't consider nested `this`).
+
+### Configuration: `"never"`
+
+To configure this rule mode:
+
+```js
+"@getify/arrow-require-this/all": [ "error", "never" ]
+```
+
+This rule mode **forbids** a `this` reference from appearing in any `=>` arrow function.
+
+These `=>` arrow functions will all pass the rule:
+
+```js
+var a = b => foo(b);
+
+var c = d => foo(e => bar(e));
+
+var f = (g = h => foo(h)) => bar(g);
+```
+
+These `=>` arrow functions will each fail the rule:
+
+```js
+var a = b => this.foo(b);
+
+var c = d => e => this.foo(e);
+
+var f = g => foo(h => this.bar(h));
+```
 
 ## npm Package
 
