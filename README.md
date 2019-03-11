@@ -1,4 +1,14 @@
-# ESLint Rule: arrow-require-this
+# (DEPRECATED) ESLint Rule: arrow-require-this
+
+----
+----
+----
+
+**DEPRECATION NOTICE: This project has been deprecated and merged into [eslint-plugin-proper-arrows](https://github.com/getify/eslint-plugin-proper-arrows).**
+
+----
+----
+----
 
 [![Build Status](https://travis-ci.org/getify/eslint-plugin-arrow-require-this.svg?branch=master)](https://travis-ci.org/getify/eslint-plugin-arrow-require-this)
 [![npm Module](https://badge.fury.io/js/%40getify%2Feslint-plugin-arrow-require-this.svg)](https://www.npmjs.org/package/@getify/eslint-plugin-arrow-require-this)

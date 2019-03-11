@@ -1,7 +1,7 @@
 {
 	"name": "@getify/eslint-plugin-arrow-require-this",
-	"version": "1.1.0",
-	"description": "ESLint rule to require arrow functions to reference the 'this' keyword",
+	"version": "2.0.0",
+	"description": "(DEPRECATED) -- Please use '@getify/eslint-plugin-proper-arrows' instead",
 	"main": "./lib/index.js",
 	"scripts": {
 		"test": "node scripts/node-tests.js",
